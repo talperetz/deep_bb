@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
+import {Http, Response} from "@angular/http";
 
 @Component({
   selector: 'app-twitter',
@@ -16,9 +16,10 @@ export class TwitterComponent implements OnInit {
     head.appendChild(script);
   }
 
-  // TODO : change hostname
   generateTweet() {
-    this._http.post("hostname/tweet", {});
+    this._http.post("http://35.189.250.254:3000/tweet", {}).subscribe((res : Response) => {
+      console.log(res.toString());
+    });
   }
   ngOnInit() {
 
