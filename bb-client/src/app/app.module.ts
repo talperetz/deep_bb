@@ -7,6 +7,9 @@ import {TwitterComponent} from "./twitter/twitter.component";
 import { RouterModule, Routes } from '@angular/router';
 import { BbMainComponent } from './bb-main/bb-main.component';
 import {HttpModule} from "@angular/http";
+import {SpeechComponent} from "./speech/speech.component";
+import {ChatComponent} from "./chat/chat.component";
+import {ChatService} from "./chat/chat.service";
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},

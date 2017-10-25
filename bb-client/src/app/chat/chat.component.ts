@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from "./chat.service";
-import Typed from 'typed.js';
 
 @Component({
   selector: 'app-chat',
