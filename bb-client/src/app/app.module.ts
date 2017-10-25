@@ -3,12 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { ChatComponent } from './chat/chat.component';
+import {ChatService} from "./chat/chat.service";
 import {TwitterComponent} from "./twitter/twitter.component";
 import { RouterModule, Routes } from '@angular/router';
 import { BbMainComponent } from './bb-main/bb-main.component';
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},
+  { path: 'chat', component: ChatComponent},
   { path: 'main', component: BbMainComponent},
   { path: '',
     redirectTo: '/main',
@@ -21,14 +24,16 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     TwitterComponent,
-    BbMainComponent
+    BbMainComponent,
+    AppComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
