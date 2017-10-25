@@ -7,7 +7,7 @@ import {Component, OnInit, HostListener} from '@angular/core';
 })
 export class BbMainComponent implements OnInit {
 
-  private isHover = false;
+  public isHover = false;
   constructor() { }
 
   ngOnInit() {
