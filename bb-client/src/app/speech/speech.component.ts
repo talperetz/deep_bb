@@ -8,7 +8,7 @@ import {Http, Response} from "@angular/http";
 })
 export class SpeechComponent implements OnInit {
 
-  private _speech: string = "asdASDas" +
+  public _speech: string = "asdASDas" +
     "dascsad" +
     "asd" +
     "asd" +
