@@ -1,0 +1,12 @@
+<div class="container-fluid d-flex justify-content-center">
+  <div class="align-middle flex-column main-page" style="display: flex">
+    <img src="/assets/DeepBB.png" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()" style="width: 250px;height: 250px; margin-top: 20px;">
+    <h3 style="align-self: center">
+      Deep Bibi
+      <div *ngIf="isHover">
+      <small class="text-muted"> & sara</small>
+      <img  src="/assets/sara.png" class="sara" style="position: absolute;">
+      </div>
+    </h3>
+  </div>
+</div>

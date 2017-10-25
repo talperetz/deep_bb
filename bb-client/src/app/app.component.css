@@ -1,0 +1,40 @@
+.bb-button {
+  -webkit-animation-name: appear;
+  -moz-animation-name: appear;
+  -o-animation-name: appear;
+  animation-name: appear;
+  animation-timing-function: ease-in;
+  animation-duration: 1.25s;
+  animation-iteration-count: 1;
+  width: 250px;
+  height: 50px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 5px;
+}
+
+.speech {
+  vertical-align: baseline;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.bbdiv {
+  padding-bottom: 5px;
+}
+
+
+@keyframes appear {
+  0% {
+   opacity : 0;
+    margin-top: 0px;
+  }
+  50% {
+    margin-top : 5px;
+  }
+  100% {
+    opacity: 1;
+    margin-top : 5px;
+  }
+
+}

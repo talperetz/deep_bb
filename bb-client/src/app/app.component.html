@@ -1,25 +1,21 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">
-    <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/10/03/13/Benjamin-Netanyahu-Still.JPG" alt="" width="30" height="30">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<main role="main" class="container">
-
-  <div class="starter-template">
-    <h1>Bootstrap starter template</h1>
-    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+<div class="bg-inverse" style="height: 100vh;">
+  <img  routerLink ="/main" src="/assets/DeepBB.png" style="width:50px;left : 4px;position: absolute; top : 5px;outline: none !important;">
+  <div class="d-flex container-fluid justify-content-center bg-dark text-white bbdiv">
+  <p style="position: absolute;
+    left: 64px;
+    top: 16px;">Deep Bibi</p>
+    <a href="#" routerLink="/chat" class="align-text-top btn btn-lg btn-info bb-button" ngbButtonLabel><i class="fa fa-comment speech"
+                                                                                        aria-hidden="true"></i> chat</a>
+    <a href="#" routerLink="/tweet" class="btn align-text-top btn-lg btn-primary bb-button" ngbButtonLabel><i class="fa fa-twitter speech"
+                                                                                          style="padding-right: 3px;"
+                                                                                          aria-hidden="true"></i>tweet</a>
+    <a href="#" routerLink="/speech" class="btn btn-lg btn-info bb-button container" ngbButtonLabel><img class="speech"
+                                                                                    src="/assets/speech.svg"
+                                                                                    height="25px"
+                                                                                    width="25px"/>speech</a>
   </div>
 
-</main>
+<router-outlet></router-outlet>
+</div>
+
+
