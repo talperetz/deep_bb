@@ -1,0 +1,8 @@
+#chat {
+  min-height: 45vh;
+  display: flex;
+}
+
+#chat dl {
+  align-self: flex-end;
+}
