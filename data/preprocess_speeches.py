@@ -11,7 +11,7 @@
 
 import os
 import nltk
-import constants
+from deep_bb import constants
 import string
 import pandas as pd
 
