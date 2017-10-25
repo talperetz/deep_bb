@@ -7,7 +7,7 @@ export class ChatService {
 
   public getAnswer(question:string){
     return new Promise(resolve => {
-      resolve('fuck off');
+      setTimeout(() => resolve('fuck off'), 2000);
     })
   }
 }
