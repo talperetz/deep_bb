@@ -7,9 +7,14 @@ import {TwitterComponent} from "./twitter/twitter.component";
 import { RouterModule, Routes } from '@angular/router';
 import { BbMainComponent } from './bb-main/bb-main.component';
 import {HttpModule} from "@angular/http";
+import {SpeechComponent} from "./speech/speech.component";
+import {ChatComponent} from "./chat/chat.component";
+import {ChatService} from "./chat/chat.service";
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},
+  { path: 'speech', component: SpeechComponent},
+  { path: 'chat', component: ChatComponent},
   { path: 'main', component: BbMainComponent},
   { path: '',
     redirectTo: '/main',
@@ -22,7 +27,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     TwitterComponent,
-    BbMainComponent
+    BbMainComponent,
+    SpeechComponent,
+    ChatComponent
   ],
   imports: [
     HttpModule,
@@ -30,7 +37,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

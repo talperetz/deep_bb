@@ -1,0 +1,9 @@
+<div id="chat">
+  <dl>
+    <dd class="" *ngFor="let message of getMessages(); let index = index" [ngStyle]="{'opacity': getMessages().length > 1 ? (index + 1) * .10 : 1, 'color': message.color}">
+      {{message.text}}
+    </dd>
+  </dl>
+</div>
+
+<input class="form-control" type="text" placeholder="Hello BB" (keyup.enter)="post($event)">
