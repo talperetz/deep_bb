@@ -33,7 +33,7 @@ class TweetGenerator:
         pass
 
 
-class MccSpeechGenerator(TweetGenerator):
+class MccTweetGenerator(TweetGenerator):
 
     def preprocess(self, text):
         mc_model = markovify.Text(text, state_size=2)
@@ -58,5 +58,5 @@ if __name__ == '__main__':
     with open(constants.CORPUS_PATH, 'r') as corpus:
         text = corpus.read().lower()
 
-    mcc_speech_generator = MccSpeechGenerator().preprocess(text)
+    mcc_speech_generator = MccTweetGenerator().preprocess(text)
     print(mcc_speech_generator.generate_tweet())

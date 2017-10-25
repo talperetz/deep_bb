@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-bb-main',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BbMainComponent implements OnInit {
 
+  private isHover = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+
+  @HostListener('mouseover')
+  onMouseOver() {
+    this.isHover = true;
+  }
+
+  @HostListener('mouseout')
+  onMouseOut() {
+    this.isHover = false;
   }
 
 }

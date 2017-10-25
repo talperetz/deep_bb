@@ -8,6 +8,7 @@ import {ChatService} from "./chat/chat.service";
 import {TwitterComponent} from "./twitter/twitter.component";
 import { RouterModule, Routes } from '@angular/router';
 import { BbMainComponent } from './bb-main/bb-main.component';
+import {HttpModule} from "@angular/http";
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
     ChatComponent
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)

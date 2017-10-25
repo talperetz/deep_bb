@@ -61,24 +61,6 @@ class MccSpeechGenerator(TweetGenerator):
         return '\n'.join(output)
 
 
-class Vocabulary:
-    word_to_int, int_to_word = None, None
-    vocabulary = None
-
-    def __init__(self, text):
-        # create mapping of unique chars to integers, and a reverse mapping
-        words = nltk.word_tokenize(text)
-        self.vocabulary = sorted(list(set(words)))
-        self.word_to_int = dict((word, i) for i, word in enumerate(self.vocabulary))
-        self.int_to_word = dict((i, word) for i, word in enumerate(self.vocabulary))
-
-    def __getitem__(self, key):
-        return self.vocabulary[key]
-
-    def __len__(self):
-        return len(self.vocabulary)
-
-
 if __name__ == '__main__':
     with open(constants.CORPUS_PATH, 'r') as corpus:
         text = corpus.read().lower()
