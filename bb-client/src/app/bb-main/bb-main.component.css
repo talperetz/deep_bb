@@ -12,3 +12,10 @@
     transform: translateY(0px);
   }
 }
+
+.sara {
+  position: absolute;
+  top: 190px;
+  right: 500px;
+  width: 100px;
+}
