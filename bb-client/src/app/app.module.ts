@@ -7,9 +7,11 @@ import {TwitterComponent} from "./twitter/twitter.component";
 import { RouterModule, Routes } from '@angular/router';
 import { BbMainComponent } from './bb-main/bb-main.component';
 import {HttpModule} from "@angular/http";
+import { SpeechComponent } from './speech/speech.component';
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},
+  { path: 'speech', component: SpeechComponent},
   { path: 'main', component: BbMainComponent},
   { path: '',
     redirectTo: '/main',
@@ -22,7 +24,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     TwitterComponent,
-    BbMainComponent
+    BbMainComponent,
+    SpeechComponent
   ],
   imports: [
     HttpModule,
