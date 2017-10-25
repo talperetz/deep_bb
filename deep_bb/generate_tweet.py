@@ -11,6 +11,7 @@
 from abc import ABCMeta, abstractmethod
 import markovify
 import pickle
+import spacy
 from deep_bb import constants
 
 __author__ = "Tal Peretz"
@@ -33,10 +34,23 @@ class TweetGenerator:
         pass
 
 
+class POSifiedText(markovify.Text):
+    nlp = spacy.load("en")
+
+    def word_split(self, sentence):
+        sentence = sentence.decode('utf-8')
+        return ["::".join((word.orth_, word.pos_)) for word in self.nlp(sentence)]
+
+    def word_join(self, words):
+        sentence = " ".join(word.split("::")[0] for word in words)
+        return sentence
+
+
 class MccTweetGenerator(TweetGenerator):
 
     def preprocess(self, text):
-        mc_model = markovify.Text(text, state_size=2)
+        # mc_model = markovify.Text(text, state_size=2)
+        mc_model = POSifiedText(text, state_size=2)
         with open(constants.TWEETS_MODEL_PATH, 'wb') as f:
             pickle.dump(mc_model, f)
         return self
