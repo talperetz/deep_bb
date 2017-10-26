@@ -23,7 +23,7 @@ class TweetController(Controller):
 
     def _post_tweet(self):
         is_tweet_sent = False
-        while is_tweet_sent:
+        while not is_tweet_sent:
             try:
                 msg = self._api.tweet(self._generate_random_tweet())
                 is_tweet_sent = True
