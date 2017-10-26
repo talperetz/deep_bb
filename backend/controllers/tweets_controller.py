@@ -12,12 +12,12 @@ class TweetController(Controller):
         Controller.__init__(self)
         self._api = tweeter_utils.TweeterUtils()
         os.chdir(DEEP_BB_PREFIX_PATH)
-        with open(constants.CORPUS_PATH, 'r') as corpus:
+        with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
             text = corpus.read().lower()
-        self.mcc_speech_generator = MccTweetGenerator().preprocess(text)
+        self.mcc_tweets_generator = MccTweetGenerator().preprocess([text])
 
     def _generate_random_tweet(self):
-        return self.mcc_speech_generator.generate_tweet()
+        return self.mcc_tweets_generator.generate_tweet()
 
     def _post_tweet(self):
         msg = self._api.tweet(self._generate_random_tweet())
