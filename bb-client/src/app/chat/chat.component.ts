@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit {
   public messages: any[] = [];
 
   constructor(private chatService: ChatService) {
+//
   }
 
   ngOnInit() {

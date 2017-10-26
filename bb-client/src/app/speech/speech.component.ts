@@ -8,16 +8,7 @@ import {Http, Response} from "@angular/http";
 })
 export class SpeechComponent implements OnInit {
 
-  private _speech: string = "asdASDas" +
-    "dascsad" +
-    "asd" +
-    "asd" +
-    "asdasdasd asd asd asfd asf sda g earg erh  fh hs " +
-    "h" +
-    "f h sdfh fdsh fd g fg erh rt hrg ng fn b fd hfd hs dfg dfg ads" +
-    "gd g dag adg fdg fdsgfdskglndflskg f dgf dgnk fdlgj fdgj dfg lsdfg dsfjlg a'gd'sagda gdg" +
-    "gdGJD GKJA,DSFBASLKJBw;fbgEOFBN;klfbjklsdblkjsbvkzcx.jvbnds sdf " +
-    "dsf ajn";
+  public _speech: string;
 
   constructor(private _http: Http) {
   }
@@ -26,9 +17,9 @@ export class SpeechComponent implements OnInit {
   }
 
   generateSpeech() {
-    this._http.get("hostname/speech").subscribe((res: Response) => {
+    this._http.get("http://35.189.250.254:3000/speech").subscribe((res: any) => {
       if (res.ok) {
-        this._speech = res.toString();
+        this._speech = JSON.parse(res._body).speech;
       }
     });
   }
