@@ -23,10 +23,10 @@ import pickle
 import numpy as np
 from itertools import chain
 from scipy.interpolate import interp1d
-import matplotlib
-from matplotlib import pyplot as plt
-plt.ioff()
-matplotlib.use('Agg')
+# import matplotlib
+# from matplotlib import pyplot as plt
+# plt.ioff()
+# matplotlib.use('Agg')
 
 
 __author__ = "Tal Peretz"
@@ -204,19 +204,6 @@ class MccTopicBasedSpeechGenerator(SpeechGenerator):
 
 
 class TopicModeling:
-
-    def get_importatnt_words(self, sentence):
-        """
-        this function filters only important words from a sentence
-        """
-        infersent = torch.load(constants.SPEECH_INFERSENT_MODEL_PATH)
-        out, idxs = infersent.visualize(sentence, tokenize=True)
-        argmaxs = [np.sum((idxs == k)) for k in range(len(sentence.split()) + 2)]
-        args_importance = [100.0 * n / np.sum(argmaxs) for n in argmaxs][1:-1]
-        average_importance = np.mean(args_importance)
-        important_words = [sentence.split()[i] for i in range(0, len(args_importance)) if
-                           args_importance[i] > average_importance]
-        return important_words
 
     def preprocess_paragraphs(self, paragraphs):
         tokenizer = RegexpTokenizer(r'\w+')
