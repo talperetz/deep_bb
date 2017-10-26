@@ -30,14 +30,3 @@ class ChatController(Controller):
         except:
             pass
         return 'fuck you!'
-
-    def _post_tweet(self):
-        is_tweet_sent = False
-        while not is_tweet_sent:
-            try:
-                msg = self._api.tweet(self._generate_random_tweet())
-                self._api.like(msg.id)
-                is_tweet_sent = True
-                return msg
-            except:
-                pass

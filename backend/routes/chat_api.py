@@ -1,6 +1,7 @@
 from controllers.chat_controller import ChatController
 from routes.Route import Route
-from server_utils import create_get_response
+from server_utils import create_get_response, get_body_content, create_not_found_response
+from flask import response
 
 PATH = "/chat"
 NAME = "chat_api"
@@ -14,5 +15,9 @@ class ChatApi(Route):
 
         @bp.route('', methods=["POST"])
         def _chat():
-            response = controller._generate_speech()
-            return create_get_response({"response": response})
+            body = get_body_content(response)
+            if 'msg' in body:
+                response = controller._answer(body.get('msg'))
+                return create_get_response({"response": response})
+            else:
+                return create_not_found_response()
