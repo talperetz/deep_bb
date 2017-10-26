@@ -70,7 +70,7 @@ class MccTweetGenerator(TweetGenerator):
         with open(constants.TWEETS_MODEL_PATH, 'rb') as f:
             mc_model = pickle.load(f)
         output = self.generate_sentence(mc_model)
-        blank_with_punct = r'\s+[,.!?]+'
+        blank_with_punct = r"\s+[,.!?']+"
 
         def rep(m):
             return m.group(0).replace(r' ', '')
