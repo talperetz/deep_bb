@@ -19,7 +19,6 @@ possible_answers = ['im on a meeting with Trump, try again later',
 class ChatController(Controller):
     def __init__(self):
         Controller.__init__(self)
-
         self._qr = QueryResponder()
         with open(constants.PROCESSED_QNA_PATH) as f:
             qna_list = pickle.load(f)
@@ -27,7 +26,7 @@ class ChatController(Controller):
             text = f.read().lower().decode('utf-8').strip()
         tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
         sentences = tokenizer.tokenize(text)
-        if not os.path.exists(constants.INFERSENT_MODEL_PATH):
+        if not os.path.exists(constants.CHAT_INFERSENT_MODEL_PATH):
             self._engine = self._qr.preprocess(qna_list, sentences)
 
     def _answer(self, question):
