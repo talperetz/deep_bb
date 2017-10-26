@@ -73,9 +73,9 @@ class MccSpeechGenerator(SpeechGenerator):
     def generate_intro(self):
         return ['ladies and gentlemen,']
 
-    def generate_sentence(self, mc_model):
+    def generate_sentence(self, mc_model, sentences):
             s = None
-            while not s:
+            while not s or s in sentences:
                 s = mc_model.make_sentence()
             return s
 
@@ -86,7 +86,7 @@ class MccSpeechGenerator(SpeechGenerator):
         intro = self.generate_intro()
         output.extend(intro)
         for i in range(n_sentences - len(intro)):
-            output.append(self.generate_sentence(mc_model))
+            output.append(self.generate_sentence(mc_model, output))
         blank_with_punct = r"\s+[',.!?]+"
 
         def rep(m):
