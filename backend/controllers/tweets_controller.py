@@ -1,5 +1,6 @@
 import os
 import re
+import traceback
 
 from controllers.Controller import Controller
 from utils import tweeter_utils
@@ -27,7 +28,6 @@ class TweetController(Controller):
                              string=re.sub(pattern='\n+', repl='\n', string=corpus.read().lower()))
             self.mcc_tweets_generator = MccTweetGenerator().preprocess([tweets_text, fb_text, quotes_text],
                                                                        weights=[0.4, 2, 1])
-
     def _generate_random_tweet(self):
         return self.mcc_tweets_generator.generate_tweet()
 
@@ -35,9 +35,10 @@ class TweetController(Controller):
         is_tweet_sent = False
         while not is_tweet_sent:
             try:
+                print 'generating tweet'
                 msg = self._api.tweet(self._generate_random_tweet())
                 self._api.like(msg.id)
                 is_tweet_sent = True
                 return msg
             except:
-                pass
+                traceback.format_exc()

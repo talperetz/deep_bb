@@ -6,7 +6,7 @@ from utils import tweeter_utils
 import pickle
 import nltk
 from deep_bb import constants
-from InferSent.generate_response import QueryResponder
+from generate_response import QueryResponder
 
 DEEP_BB_PREFIX_PATH = '../deep_bb/'
 
