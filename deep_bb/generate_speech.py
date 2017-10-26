@@ -23,10 +23,6 @@ import pickle
 import numpy as np
 from itertools import chain
 from scipy.interpolate import interp1d
-# import matplotlib
-# from matplotlib import pyplot as plt
-# plt.ioff()
-# matplotlib.use('Agg')
 
 
 __author__ = "Tal Peretz"
