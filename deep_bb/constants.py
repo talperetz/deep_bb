@@ -23,16 +23,19 @@ PREPROCESSED_FB_POSTS_PATH = [r'../data/raw_data/datahack_knesset_fb_posts.csv/S
 PROCESSED_FB_POSTS_PATH = "../data/processed_data/bb_fb_posts.txt"
 PROCESSED_TWEETS_PATH = "../data/processed_data/bb_tweets.txt"
 PROCESSED_QNA_PATH = "../data/processed_data/bb_qna_list.pickle"
+PROCESSED_SENTENCES_PATH = "../data/processed_data/bb_sentences.pickle"
+PROCESSED_QUOTES_PATH = "../data/processed_data/bb_quotes.txt"
 INFERSENT_ALL_NLI_PATH = "../InferSent/encoder/infersent.allnli.pickle"
 INFERSENT_GLOVE_PATH = '../InferSent/dataset/GloVe/glove.840B.300d.txt'
 
 # models
 TWEETS_MODEL_PATH = '../models/tweets_markov_chains.pickle'
 SPEECH_MODEL_PATH = '../models/speech_markov_chains.pickle'
-CHAT_MODEL_PATH = '../models/chat_infersent.pickle'
+INFERSENT_MODEL_PATH = '../models/chat_infersent.pickle'
 EMBEDDED_SENTENCES_MATRIX_PATH = '../models/embedded_sentences_matrix.pickle'
+GENERAL_MODEL_PATH = '../models/general_responder.pickle'
 
 
 MAX_TWEET_LENGTH = 140
-QUERY_MATCH_CONFIDENCE_THRESHOLD = 0.5
+SIMILARITY_THRESHOLD = 0.8
 

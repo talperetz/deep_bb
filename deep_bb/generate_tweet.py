@@ -80,8 +80,14 @@ class MccTweetGenerator(TweetGenerator):
 
 if __name__ == '__main__':
     with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
-        text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
+        tweets_text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
+
+    with open(constants.PROCESSED_QUOTES_PATH, 'r') as corpus:
+        quotes_text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
+
+    with open(constants.PROCESSED_FB_POSTS_PATH, 'r') as corpus:
+        fb_text = re.sub(pattern='.', repl='.\n',string=re.sub(pattern='\n+', repl='\n', string=corpus.read().lower()))
         # text = re.sub(pattern='\n+', repl='\n',string=re.sub(pattern=r'\n{1}', repl=', ', string=corpus.read().lower()))
     # print text
-    mcc_speech_generator = MccTweetGenerator().preprocess([text])
+    mcc_speech_generator = MccTweetGenerator().preprocess([tweets_text, fb_text, quotes_text], weights=[0.4, 2, 1])
     print(mcc_speech_generator.generate_tweet())
