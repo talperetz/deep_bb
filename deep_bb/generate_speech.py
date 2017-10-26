@@ -72,7 +72,7 @@ class MccSpeechGenerator(TweetGenerator):
         output.extend(intro)
         for i in range(n_sentences - len(intro)):
             output.append(self.generate_sentence(mc_model))
-        blank_with_punct = r"\s+[,.!?']+"
+        blank_with_punct = r"\s+[',.!?]+"
 
         def rep(m):
             return m.group(0).replace(r' ', '')
