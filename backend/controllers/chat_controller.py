@@ -16,7 +16,7 @@ class ChatController(Controller):
     def __init__(self):
         Controller.__init__(self)
 
-        qr = QueryResponder()
+        self._qr = QueryResponder()
         with open(constants.PROCESSED_QNA_PATH) as f:
             qna_list = pickle.load(f)
         with open(constants.PROCESSED_QUOTES_PATH) as f:
@@ -24,12 +24,12 @@ class ChatController(Controller):
         tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
         sentences = tokenizer.tokenize(text)
         if not os.path.exists(constants.INFERSENT_MODEL_PATH):
-            self._engine = qr.preprocess(qna_list, sentences)
+            self._engine = self._qr.preprocess(qna_list, sentences)
 
     def _answer(self, question):
         reply = 'fuck you!'
         try:
-            reply = self._engine.reply(question)
+            reply = self._qr.reply(question)
             print reply
         except:
             traceback.format_exc()
