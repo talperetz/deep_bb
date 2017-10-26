@@ -13,9 +13,6 @@ import torch
 import nltk
 import pickle
 from abc import ABCMeta, abstractmethod
-# from nltk.tokenize import RegexpTokenizer
-# from stop_words import get_stop_words
-# from nltk.stem.porter import PorterStemmer
 from deep_bb import constants
 import numpy as np
 from scipy import spatial
@@ -53,17 +50,17 @@ class QueryResponder(Responder):
         sentences = [d['question'].decode('utf-8').strip() for d in qna_list]
         sentences.extend(quotes)
         infersent.build_vocab(sentences, tokenize=True)
-        torch.save(infersent, constants.INFERSENT_MODEL_PATH)
+        torch.save(infersent, constants.CHAT_INFERSENT_MODEL_PATH)
         embedded_sentences_matrix = infersent.encode(sentences, tokenize=True)
-        with open(constants.EMBEDDED_SENTENCES_MATRIX_PATH, 'wb') as f:
+        with open(constants.CHAT_EMBEDDED_SENTENCES_MATRIX_PATH, 'wb') as f:
             pickle.dump(embedded_sentences_matrix, f)
         with open(constants.PROCESSED_QNA_PATH, 'wb') as f:
             pickle.dump(qna_list, f)
-        with open(constants.PROCESSED_SENTENCES_PATH, 'wb') as f:
+        with open(constants.CHAT_PROCESSED_SENTENCES_PATH, 'wb') as f:
             pickle.dump(sentences, f)
 
     def preprocess_query(self, query):
-        infersent = torch.load(constants.INFERSENT_MODEL_PATH)
+        infersent = torch.load(constants.CHAT_INFERSENT_MODEL_PATH)
         sentence = query.lower().decode('utf-8').strip()
         return infersent.encode([sentence])[0]
 
@@ -71,11 +68,11 @@ class QueryResponder(Responder):
         # improve according to
         # https://stackoverflow.com/questions/17627219/whats-the-fastest-way-in-python-to-calculate-cosine-similarity-given-sparse-mat
         # since the matrix is very sparse !!!!!!!!!!!!!!!!!!
-        with open(constants.EMBEDDED_SENTENCES_MATRIX_PATH, 'rb') as f:
+        with open(constants.CHAT_EMBEDDED_SENTENCES_MATRIX_PATH, 'rb') as f:
             embedded_sentences_matrix = pickle.load(f)
         with open(constants.PROCESSED_QNA_PATH, 'rb') as f:
             qna_list = pickle.load(f)
-        with open(constants.PROCESSED_SENTENCES_PATH, 'rb') as f:
+        with open(constants.CHAT_PROCESSED_SENTENCES_PATH, 'rb') as f:
             sentences = pickle.load(f)
         query_vec = self.preprocess_query(query)
         cosine_similarities = []
@@ -88,7 +85,12 @@ class QueryResponder(Responder):
             else:
                 return sentences[closest_sentence_idx]
         else:
-            return self.general_responder.reply(query)
+            reply, confidence = self.general_responder.reply(query)
+            if confidence > 0.56:
+                return reply
+            else:
+                return np.random.choice(constants.GENERAL_RESPONSES, 1)[0]
+
 
 
 # class QueryResponder(Responder):
@@ -140,25 +142,22 @@ class GeneralResponder(Responder):
             'deep_bb',
             trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
         )
-        self.chatbot.train("chatterbot.corpus.english")
+        self.chatbot.train(
+            "chatterbot.corpus.english.greetings",
+            "chatterbot.corpus.english.conversations",
+            "chatterbot.corpus.english.history",
+            "chatterbot.corpus.english.politics",
+            "chatterbot.corpus.english.psychology"
+        )
+
         return self
 
     def preprocess_query(self, query):
         return query
 
     def reply(self, query):
-        return self.chatbot.get_response(query).text
-
-
-class InvalidResponder(Responder):
-    def __init__(self):
-        pass
-
-    def preprocess_query(self, query):
-        pass
-
-    def reply(self, query):
-        pass
+        response = self.chatbot.get_response(query)
+        return response.text, response.confidence
 
 
 if __name__ == '__main__':
@@ -167,7 +166,9 @@ if __name__ == '__main__':
         qna_list = pickle.load(f)
     with open(constants.PROCESSED_QUOTES_PATH) as f:
         text = f.read().lower().decode('utf-8').strip()
+    with open(constants.PROCESSED_FB_POSTS_PATH) as f:
+        text = text + '\n\n' + f.read().lower().decode('utf-8').strip()
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(text)
     qr.preprocess(qna_list, sentences)
-    qr.reply('some query')
+    print qr.reply('como estas?')
