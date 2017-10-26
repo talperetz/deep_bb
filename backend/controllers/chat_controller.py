@@ -8,8 +8,12 @@ import nltk
 from deep_bb import constants
 from generate_response import QueryResponder
 import traceback
+import random
 
 DEEP_BB_PREFIX_PATH = '../deep_bb/'
+
+possible_answers = ['im on a meeting with Trump, try again later',
+                    'Sara just called me, i have to go to take out the puppies']
 
 
 class ChatController(Controller):
@@ -27,7 +31,7 @@ class ChatController(Controller):
             self._engine = self._qr.preprocess(qna_list, sentences)
 
     def _answer(self, question):
-        reply = 'fuck you!'
+        reply = possible_answers[random.randint(0, len(possible_answers) - 1)]
         try:
             reply = self._qr.reply(question)
             print reply

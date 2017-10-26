@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
+import {Http, Response} from "@angular/http";
 
 @Injectable()
 export class ChatService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   public getAnswer(question:string){
-    return new Promise(resolve => {
-      setTimeout(() => resolve('fuck off'), 2000);
-    })
+    return this.http.post("http://35.189.250.254:3000/chat", {msg:question});
   }
 }

@@ -1,5 +1,6 @@
 #chat {
-  min-height: 45vh;
+  font-size: large;
+  min-height: 85vh;
   display: flex;
 }
 
