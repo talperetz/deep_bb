@@ -7,6 +7,7 @@ import pickle
 import nltk
 from deep_bb import constants
 from generate_response import QueryResponder
+import traceback
 
 DEEP_BB_PREFIX_PATH = '../deep_bb/'
 
@@ -27,7 +28,9 @@ class ChatController(Controller):
 
     def _answer(self, question):
         try:
-            return self._engine.reply(question)
+            reply = self._engine.reply(question)
+            print reply
+            return reply
         except:
-            pass
+            traceback.format_exc()
         return 'fuck you!'
