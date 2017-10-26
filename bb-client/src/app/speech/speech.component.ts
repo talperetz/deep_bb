@@ -20,7 +20,9 @@ export class SpeechComponent implements OnInit {
     this._http.get("http://35.189.250.254:3000/speech").subscribe((res: any) => {
       if (res.ok) {
         this._speech = JSON.parse(res._body).speech;
+        responsiveVoice.speak(this._speech, "UK English Male");
       }
+
     });
   }
 
