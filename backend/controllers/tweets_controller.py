@@ -12,7 +12,7 @@ class TweetController(Controller):
         Controller.__init__(self)
         self._api = tweeter_utils.TweeterUtils()
         os.chdir(DEEP_BB_PREFIX_PATH)
-        with open(constants.CORPUS_PATH, 'r') as corpus:
+        with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
             text = corpus.read().lower()
         self.mcc_tweets_generator = MccTweetGenerator().preprocess([text])
 
