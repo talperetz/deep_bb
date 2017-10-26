@@ -27,10 +27,10 @@ class ChatController(Controller):
             self._engine = qr.preprocess(qna_list, sentences)
 
     def _answer(self, question):
+        reply = 'fuck you!'
         try:
             reply = self._engine.reply(question)
             print reply
-            return reply
         except:
             traceback.format_exc()
-        return 'fuck you!'
+        return reply
