@@ -17,7 +17,7 @@ class ChatApi(Route):
             from flask import request
             body = get_body_content(request)
             if 'msg' in body:
-                response = controller._anwer(body.get('msg'))
+                response = controller._answer(body.get('msg'))
                 return create_get_response({"response": response})
             else:
                 return create_not_found_response()
