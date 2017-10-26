@@ -14,8 +14,11 @@ class TweetController(Controller):
         self._api = tweeter_utils.TweeterUtils()
         os.chdir(DEEP_BB_PREFIX_PATH)
         with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
+            tweets = corpus.read().lower()
+        with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
             text = corpus.read().lower()
-        self.mcc_tweets_generator = MccTweetGenerator().preprocess([text])
+
+        self.mcc_tweets_generator = MccTweetGenerator().preprocess([tweets])
 
     def _generate_random_tweet(self):
         # engine = pyttsx.init()
@@ -26,6 +29,7 @@ class TweetController(Controller):
         while not is_tweet_sent:
             try:
                 msg = self._api.tweet(self._generate_random_tweet())
+                self._api.like(msg.id)
                 is_tweet_sent = True
                 return msg
             except:

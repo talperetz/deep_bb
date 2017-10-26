@@ -19,3 +19,9 @@ class TweeterUtils:
     def tweet(self, msg):
         status = self._api.update_status(msg)
         return status
+
+    def like(self, tweet_id):
+        try:
+            self._api.create_favorite(tweet_id)
+        except:
+            pass
