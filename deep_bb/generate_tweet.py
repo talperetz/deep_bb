@@ -27,7 +27,7 @@ class TweetGenerator:
     model = None
 
     @abstractmethod
-    def preprocess(self, text):
+    def preprocess(self, texts, weights=None):
         pass
 
     @abstractmethod
@@ -49,16 +49,20 @@ class POSifiedText(markovify.Text):
 
 class MccTweetGenerator(TweetGenerator):
 
-    def preprocess(self, text):
-        # mc_model = markovify.Text(text, state_size=2)
-        mc_model = POSifiedText(text, state_size=3)
+    def preprocess(self, texts, weights=None):
+        weights = [1 for _ in texts] if weights is None else weights
+        mc_models = []
+        for text in texts:
+            mc_models.append(markovify.Text(text, state_size=3))
+        combined_model = markovify.combine(mc_models, weights)
+        # mc_model = POSifiedText(text, state_size=3)
         with open(constants.TWEETS_MODEL_PATH, 'wb') as f:
-            pickle.dump(mc_model, f)
+            pickle.dump(combined_model, f)
         return self
 
     def generate_sentence(self, mc_model):
             s = None
-            while not s:
+            while not s or len(s) > constants.MAX_TWEET_LENGTH:
                 s = mc_model.make_sentence()
             return s
 
@@ -79,5 +83,5 @@ if __name__ == '__main__':
         text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
         # text = re.sub(pattern='\n+', repl='\n',string=re.sub(pattern=r'\n{1}', repl=', ', string=corpus.read().lower()))
     # print text
-    mcc_speech_generator = MccTweetGenerator().preprocess(text)
+    mcc_speech_generator = MccTweetGenerator().preprocess([text])
     print(mcc_speech_generator.generate_tweet())
