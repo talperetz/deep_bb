@@ -10,11 +10,13 @@ import {HttpModule} from "@angular/http";
 import {SpeechComponent} from "./speech/speech.component";
 import {ChatComponent} from "./chat/chat.component";
 import {ChatService} from "./chat/chat.service";
+import { AboutComponent } from './about/about.component';
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},
   { path: 'speech', component: SpeechComponent},
   { path: 'chat', component: ChatComponent},
+  { path: 'about', component: AboutComponent},
   { path: 'main', component: BbMainComponent},
   { path: '',
     redirectTo: '/main',
@@ -29,7 +31,8 @@ const appRoutes: Routes = [
     TwitterComponent,
     BbMainComponent,
     SpeechComponent,
-    ChatComponent
+    ChatComponent,
+    AboutComponent
   ],
   imports: [
     HttpModule,

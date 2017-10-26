@@ -6,8 +6,8 @@
   animation-timing-function: ease-in;
   animation-duration: 1.25s;
   animation-iteration-count: 1;
-  width: 15%;
   margin: 0 2px;
+  flex: .1;
 }
 
 .speech {
@@ -17,12 +17,26 @@
 }
 
 .bbdiv {
-  padding: 5px 0;
+  padding: 7px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 600px) {
+  .bhidden {
+    visibility: hidden;
+    display: none;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .phidden{
     visibility: hidden;
+    display: none;
+  }
+
+  .bb-button span {
+    font-size: 0;
   }
 }
 
@@ -38,5 +52,4 @@
     opacity: 1;
     margin-top : 5px;
   }
-
 }

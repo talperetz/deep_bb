@@ -1,23 +1,31 @@
 <div class="bg-inverse" style="height: 100vh;">
-  <img  routerLink ="/main" src="/assets/DeepBB.png" style="width:50px;left : 4px;position: absolute; top : 5px;outline: none !important;" class="phidden">
-  <div class="d-flex container-fluid justify-content-center bg-dark text-white bbdiv">
-  <p style="position: absolute;
-    left: 64px;
-    top: 16px;" class="phidden">Deep Bibi</p>
-    <a href="#" routerLink="/chat" class="btn btn-lg btn-info bb-button" ngbButtonLabel><i class="fa fa-comment speech"
-                                                                                        aria-hidden="true"></i> chat</a>
-    <a href="#" routerLink="/tweet" class="btn btn-lg btn-primary bb-button" ngbButtonLabel><i class="fa fa-twitter speech"
-                                                                                          style="padding-right: 3px;"
-                                                                                          aria-hidden="true"></i>tweet</a>
-    <a href="#" routerLink="/speech" class="btn btn-lg btn-info bb-button " ngbButtonLabel><img class="speech"
-                                                                                    src="/assets/speech.svg"
-                                                                                    height="25px"
-                                                                                    width="25px"/>speech</a>
-    <a href="#" routerLink="/tweet" class="btn btn-lg btn-primary bb-button" ngbButtonLabel>about</a>
+  <div class="d-flex container-fluid bg-dark text-white bbdiv">
+    <div class="phidden">
+      <img routerLink="/main" src="/assets/DeepBB.png"
+              style="width:50px; height:50px;;outline: none !important;" >
+      <span >Deep Bibi</span></div>
+
+    <div>
+      <a href="#" routerLink="/chat" class="btn btn-lg btn-info bb-button" ngbButtonLabel><i
+        class="fa fa-comment speech"
+        aria-hidden="true"></i> <span>chat</span></a>
+      <a href="#" routerLink="/tweet" class="btn btn-lg btn-primary bb-button" ngbButtonLabel><i
+        class="fa fa-twitter speech"
+        style="padding-right: 3px;"
+        aria-hidden="true"></i><span>tweet</span></a>
+      <a href="#" routerLink="/speech" class="btn btn-lg btn-info bb-button " ngbButtonLabel><img class="speech"
+                                                                                                  src="/assets/speech.svg"
+                                                                                                  height="25px"
+                                                                                                  width="25px"/><span>speech</span></a>
+    </div>
+
+    <a href="#" routerLink="/about" class="btn btn-lg btn-primary bb-button" ngbButtonLabel> <i class="fa fa-question-circle bhidden"></i> <span>about</span></a>
 
   </div>
 
-<div class="container"><router-outlet></router-outlet></div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 
