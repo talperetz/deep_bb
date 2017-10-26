@@ -35,7 +35,7 @@ export class TwitterComponent implements OnInit {
         setTimeout(() => {
             this.createScript();
            this.isUpdate = true;
-        }, 1000);
+        }, 2000);
     }
 
     ngOnInit() {
