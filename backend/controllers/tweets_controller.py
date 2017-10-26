@@ -1,9 +1,11 @@
+import os
+import re
+
 from controllers.Controller import Controller
+from utils import tweeter_utils
+
 from deep_bb import constants
 from deep_bb.generate_tweet import MccTweetGenerator
-from utils import tweeter_utils
-import os
-import pyttsx
 
 DEEP_BB_PREFIX_PATH = '../deep_bb/'
 
@@ -13,15 +15,20 @@ class TweetController(Controller):
         Controller.__init__(self)
         self._api = tweeter_utils.TweeterUtils()
         os.chdir(DEEP_BB_PREFIX_PATH)
-        with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
-            tweets = corpus.read().lower()
-        with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
-            text = corpus.read().lower()
 
-        self.mcc_tweets_generator = MccTweetGenerator().preprocess([tweets])
+        with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
+            tweets_text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
+
+        with open(constants.PROCESSED_QUOTES_PATH, 'r') as corpus:
+            quotes_text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
+
+        with open(constants.PROCESSED_FB_POSTS_PATH, 'r') as corpus:
+            fb_text = re.sub(pattern='.', repl='.\n',
+                             string=re.sub(pattern='\n+', repl='\n', string=corpus.read().lower()))
+            self.mcc_tweets_generator = MccTweetGenerator().preprocess([tweets_text, fb_text, quotes_text],
+                                                                       weights=[0.4, 2, 1])
 
     def _generate_random_tweet(self):
-        # engine = pyttsx.init()
         return self.mcc_tweets_generator.generate_tweet()
 
     def _post_tweet(self):

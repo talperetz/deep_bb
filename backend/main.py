@@ -11,10 +11,14 @@ from flask_cors import CORS, cross_origin
 def load_blueprints(app):
     from routes.tweet_api import TweetApi
     from routes.speech_api import SpeechApi
+    from routes.chat_api import ChatApi
+
     tweet_api = TweetApi()
     speech_api = SpeechApi()
+    chat_api = ChatApi()
     app.register_blueprint(tweet_api._bp)
     app.register_blueprint(speech_api._bp)
+    app.register_blueprint(chat_api._bp)
 
 
 def init_server(app):
