@@ -13,6 +13,7 @@ import markovify
 import pickle
 import spacy
 from deep_bb import constants
+import re
 
 __author__ = "Tal Peretz"
 __copyright__ = "Copyright 2017"
@@ -50,7 +51,7 @@ class MccTweetGenerator(TweetGenerator):
 
     def preprocess(self, text):
         # mc_model = markovify.Text(text, state_size=2)
-        mc_model = POSifiedText(text, state_size=2)
+        mc_model = POSifiedText(text, state_size=3)
         with open(constants.TWEETS_MODEL_PATH, 'wb') as f:
             pickle.dump(mc_model, f)
         return self
@@ -58,19 +59,25 @@ class MccTweetGenerator(TweetGenerator):
     def generate_sentence(self, mc_model):
             s = None
             while not s:
-                s = mc_model.make_short_sentence(max_chars=120, min_chars=4)
+                s = mc_model.make_sentence()
             return s
 
     def generate_tweet(self):
         with open(constants.TWEETS_MODEL_PATH, 'rb') as f:
             mc_model = pickle.load(f)
         output = self.generate_sentence(mc_model)
-        return output
+        blank_with_punct = r'\s+[,.!?]+'
+
+        def rep(m):
+            return m.group(0).replace(r' ', '')
+        corrected_output = re.sub(blank_with_punct, rep, output)
+        return corrected_output
 
 
 if __name__ == '__main__':
-    with open(constants.CORPUS_PATH, 'r') as corpus:
-        text = corpus.read().lower()
-
+    with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
+        text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
+        # text = re.sub(pattern='\n+', repl='\n',string=re.sub(pattern=r'\n{1}', repl=', ', string=corpus.read().lower()))
+    # print text
     mcc_speech_generator = MccTweetGenerator().preprocess(text)
     print(mcc_speech_generator.generate_tweet())
