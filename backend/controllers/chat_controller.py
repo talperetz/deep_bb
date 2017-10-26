@@ -22,7 +22,8 @@ class ChatController(Controller):
             text = f.read().lower().decode('utf-8').strip()
         tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
         sentences = tokenizer.tokenize(text)
-        self._engine = qr.preprocess(qna_list, sentences)
+        if not os.path.exists(constants.INFERSENT_MODEL_PATH):
+            self._engine = qr.preprocess(qna_list, sentences)
 
     def _answer(self, question):
         try:
