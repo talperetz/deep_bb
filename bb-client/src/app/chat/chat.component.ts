@@ -26,8 +26,11 @@ export class ChatComponent implements OnInit {
 
     this.messages.push({text: text, color: '#000'});
 
-    this.chatService.getAnswer(text).then(answer => {
-      this.messages.push({text: answer, color: '#0863bb'});
+    this.chatService.getAnswer(text).subscribe((answer:any) => {
+      let response = JSON.parse(answer._body).response;
+      this.messages.push({text: response, color: '#0863bb'});
+
+   //   responsiveVoice.speak(response, "UK English Male", {pitch: .7, range: 1});
 
       event.target.value = '';
       event.target.disabled = '';
