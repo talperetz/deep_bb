@@ -30,9 +30,11 @@ export class SpeechComponent implements OnInit {
       if (res.ok) {
         this._speech = JSON.parse(res._body).speech;
         let statisctics = JSON.parse(res._body).statistics;
+        let sbvc = JSON.parse(res._body).sort_by_values_counts;
+        let statistics_words = JSON.parse(res._body).statistics_words;
 
-        this.barChartLabels = Object.keys(statisctics);
-        this.barChartData[0].data = this.barChartLabels.map(key => statisctics[key]);
+        this.barChartLabels = statistics_words;
+        this.barChartData[0].data = sbvc;
         responsiveVoice.speak(this._speech, "UK English Male", {pitch: .7, range: 1});
       }
     });

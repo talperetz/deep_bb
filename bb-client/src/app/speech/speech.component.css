@@ -1,7 +1,7 @@
 canvas {
   padding-top: 5vh;
   width: 40vw!important;
-  height: 60vh!important;
+  height: 40vh!important;
 }
 
 @media screen and (max-width: 600px) {
