@@ -17,11 +17,5 @@ class SpeechController(Controller):
         data = dict()
         data['speech'] = self.mcc_speech_generator.generate_speech()
         data['statistics'] = self._generate_speech_statistics()
+        data['statistics'] = dict(data['statistics'])
         return data
-
-    def _generate_speech_statistics(self):
-        statistics = dict()
-        statistics_words_qtt = random.randint(15, 40)
-        for word_index in xrange(statistics_words_qtt):
-            statistics[str(word_index)] = random.uniform(0, 50)
-        return statistics
