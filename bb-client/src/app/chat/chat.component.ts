@@ -18,19 +18,23 @@ export class ChatComponent implements OnInit {
   }
 
   public post(event) {
-    const text = event.target.value;
+    let text;
+    if (event.target)
+      text = event.target.value;
+    else
+      text = event;
 
-    if (!text || text.trim().length === 0){
+    if (!text || text.trim().length === 0) {
       return;
     }
 
     this.messages.push({text: text, color: '#000'});
 
-    this.chatService.getAnswer(text).subscribe((answer:any) => {
+    this.chatService.getAnswer(text).subscribe((answer: any) => {
       let response = JSON.parse(answer._body).response;
       this.messages.push({text: response, color: '#0863bb'});
 
-   //   responsiveVoice.speak(response, "UK English Male", {pitch: .7, range: 1});
+      //   responsiveVoice.speak(response, "UK English Male", {pitch: .7, range: 1});
 
       event.target.value = '';
       event.target.disabled = '';
@@ -44,6 +48,6 @@ export class ChatComponent implements OnInit {
     return this.messages.slice(Math.max(this.messages.length - 10, 0))
   }
 
-  public ngAfterViewChecked(){
+  public ngAfterViewChecked() {
   }
 }

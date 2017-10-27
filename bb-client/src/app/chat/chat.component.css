@@ -1,9 +1,21 @@
 #chat {
-  font-size: large;
-  min-height: 85vh;
+  font-size: x-large;
+  min-height: 90vh;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-#chat dl {
-  align-self: flex-end;
+input {
+  font-size: x-large;
+}
+
+#btns button {
+  margin: 2px;
+}
+
+@media screen and (max-width: 600px) {
+  #btns{
+    justify-content: center;
+  }
 }

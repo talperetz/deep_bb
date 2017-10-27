@@ -1,9 +1,13 @@
 <div id="chat">
   <dl>
-    <dd class="" *ngFor="let message of getMessages(); let index = index" [ngStyle]="{'opacity': getMessages().length > 1 ? (index + 1) * .10 : 1, 'color': message.color}">
+    <dd class="" *ngFor="let message of getMessages(); let index = index" [ngStyle]="{'opacity': getMessages().length > 5 ? (index + 1) * .20 : 1, 'color': message.color}">
       {{message.text}}
     </dd>
   </dl>
+  <input class="form-control" type="text" placeholder="Hello BB" (keyup.enter)="post($event)">
+  <div id="btns" style="display: flex; ">
+    <button class="btn btn-info" (click)="post('Hello')">Hello</button>
+    <button class="btn btn-info" (click)="post('what do you think about the deal with iran?')">Iran</button>
+    <button class="btn btn-info" (click)="post('are you gonna win the next elections?')">Elections</button>
+  </div>
 </div>
-
-<input class="form-control" type="text" placeholder="Hello BB" (keyup.enter)="post($event)">
