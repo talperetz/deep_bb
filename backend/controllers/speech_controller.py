@@ -2,7 +2,7 @@ from controllers.Controller import Controller
 from deep_bb import constants
 from deep_bb.generate_speech import MccSpeechGenerator
 import random
-
+import traceback
 DEEP_BB_PREFIX_PATH = 'deep_bb/deep_bb/'
 
 
@@ -14,7 +14,10 @@ class SpeechController(Controller):
         self.mcc_speech_generator = MccSpeechGenerator().preprocess(text)
 
     def _generate_speech(self):
-        data = dict()
-        data['speech'],data['statistics'] = self.mcc_speech_generator.generate_speech()
-        data['statistics'] = dict(data['statistics'])
+        data = None
+        try:
+            data['speech'], data['statistics'] = self.mcc_speech_generator.generate_speech()
+            data['statistics'] = dict(data['statistics'])
+        except:
+            traceback.format_exc()
         return data
