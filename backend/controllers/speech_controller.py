@@ -19,10 +19,7 @@ class SpeechController(Controller):
         self.mcc_speech_generator = MccSpeechGenerator().preprocess(texts)
 
     def _generate_speech(self):
-        data = None
-        try:
-            data['speech'], data['statistics'] = self.mcc_speech_generator.generate_speech()
-            data['statistics'] = dict(data['statistics'])
-        except:
-            traceback.format_exc()
+        data = dict()
+        data['speech'], data['statistics'] = self.mcc_speech_generator.generate_speech()
+        data['statistics'] = dict(data['statistics'])
         return data
