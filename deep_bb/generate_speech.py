@@ -91,7 +91,7 @@ class MccSpeechGenerator(SpeechGenerator):
 
         corrected_output = [re.sub(blank_with_punct, rep, sentence) for sentence in output]
         speech = '\n'.join(corrected_output)
-        return speech, get_word_occurences(text, 15)
+        return speech, get_word_occurences(speech, 15)
 
 
 class MccEmbeddedSpeechGenerator(SpeechGenerator):
@@ -253,9 +253,6 @@ class TopicModeling:
 
 
 if __name__ == '__main__':
-
-    with open(constants.CORPUS_PATH, 'r') as corpus:
-        text = corpus.read().lower()
 
     texts = ''
     for path in constants.PROCESSED_SPEECHES_PATHS:

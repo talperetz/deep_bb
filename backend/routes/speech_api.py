@@ -1,6 +1,6 @@
 from controllers.speech_controller import SpeechController
 from routes.Route import Route
-from server_utils import create_get_response
+from server_utils import create_get_response, create_not_found_response
 
 PATH = "/speech"
 NAME = "speech_api"
@@ -15,4 +15,7 @@ class SpeechApi(Route):
         @bp.route('', methods=["GET"])
         def _get_speech():
             speech = controller._generate_speech()
-            return create_get_response(speech)
+            if speech:
+                return create_get_response(speech)
+            else:
+                return create_not_found_response()
