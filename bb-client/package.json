@@ -23,8 +23,10 @@
     "@angular/router": "^4.2.4",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
     "bootstrap": "^4.0.0-beta.2",
+    "chart.js": "^2.7.0",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
+    "ng2-charts": "^1.6.0",
     "rxjs": "^5.4.2",
     "typed.js": "^2.0.6",
     "zone.js": "^0.8.14"

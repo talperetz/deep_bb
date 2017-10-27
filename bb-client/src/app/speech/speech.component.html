@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center">
+<div class="container-fluid d-flex justify-content-center">
   <button (click)="generateSpeech()" class="btn btn-danger" style="margin-top: 20px;"> Generate Speech</button>
 </div>
 <button *ngIf="_speech" class="align-text-top btn btn-lg btn-info bb-button" ngbButtonLabel><i
@@ -7,11 +7,20 @@
   (click)="togglePlaying()"
   aria-hidden="true"></i></button>
 
-<div class="container d-flex justify-content-center">
+<div id="qwe" class="container-fluid d-flex justify-content-center">
   <div class="w3-panel w3-leftbar" *ngIf="_speech">
     <p><i class="fa fa-quote-right w3-xxlarge"></i><br>
-      <i class="w3-xlarge">{{_speech}}</i></p>
+      <i class="w3-xlarge" style="white-space: pre-wrap">{{_speech}}</i></p>
   </div>
+
+
+  <canvas baseChart *ngIf="_speech"
+          [labels]="barChartLabels"
+          [datasets]="barChartData"
+          [legend]="false"
+          [colors]="colors"
+          [chartType]="'horizontalBar'">
+  </canvas>
 </div>
 
 

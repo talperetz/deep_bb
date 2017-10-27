@@ -1,0 +1,17 @@
+canvas {
+  padding-top: 5vh;
+  width: 40vw!important;
+  height: 60vh!important;
+}
+
+@media screen and (max-width: 600px) {
+  #qwe {
+    flex-direction: column;
+  }
+
+  canvas {
+    padding-top: 0;
+    width: 90vw!important;
+    height: 50vh!important;
+  }
+}

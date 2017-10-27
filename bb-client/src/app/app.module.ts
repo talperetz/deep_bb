@@ -11,6 +11,7 @@ import {SpeechComponent} from "./speech/speech.component";
 import {ChatComponent} from "./chat/chat.component";
 import {ChatService} from "./chat/chat.service";
 import { AboutComponent } from './about/about.component';
+import {ChartsModule} from "ng2-charts";
 
 const appRoutes: Routes = [
   { path: 'tweet', component: TwitterComponent},
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
   imports: [
     HttpModule,
     BrowserModule,
+    ChartsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
