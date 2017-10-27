@@ -15,4 +15,4 @@ class SpeechApi(Route):
         @bp.route('', methods=["GET"])
         def _get_speech():
             speech = controller._generate_speech()
-            return create_get_response({"speech": speech})
+            return create_get_response(speech)
