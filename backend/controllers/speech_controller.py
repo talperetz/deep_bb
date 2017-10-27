@@ -27,8 +27,8 @@ class SpeechController(Controller):
         data['sort_by_values_counts'] = list()
 
         for w in sorted(data['statistics'], key=data['statistics'].get, reverse=True):
-            data['sort_by_values_words'] = w
-            data['sort_by_values_counts'] = data['statistics'][w]
+            data['sort_by_values_words'].append(w)
+            data['sort_by_values_counts'].append(data['statistics'][w])
         data['statistics_words'] = sorted(data.get('statistics').keys())
         data['statistics_counts'] = list()
         for word_count in data['statistics_words']:
