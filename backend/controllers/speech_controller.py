@@ -1,9 +1,9 @@
-from controllers.Controller import Controller
-from deep_bb import constants
 import re
+
+from controllers.Controller import Controller
+
+from deep_bb import constants
 from deep_bb.generate_speech import MccSpeechGenerator
-import random
-import traceback
 
 DEEP_BB_PREFIX_PATH = 'deep_bb/deep_bb/'
 
@@ -21,9 +21,12 @@ class SpeechController(Controller):
     def _generate_speech(self):
         data = dict()
         data['speech'], data['statistics'] = self.mcc_speech_generator.generate_speech()
+        data['statistics'] = dict(data['statistics'])
+        data['sort_by_values'] = dict()
+        for w in sorted(data['statistics'], key=data['statistics'].get, reverse=True):
+            data['sort_by_values'][w] = data['statistics'][w]
         data['statistics_words'] = sorted(data.get('statistics').keys())
         data['statistics_counts'] = list()
         for word_count in data['statistics_words']:
             data['statistics_counts'].append(data['statistics'][word_count])
-        data['statistics'] = dict(data['statistics'])
         return data
