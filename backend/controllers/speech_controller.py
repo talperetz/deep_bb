@@ -15,7 +15,6 @@ class SpeechController(Controller):
 
     def _generate_speech(self):
         data = dict()
-        data['speech'] = self.mcc_speech_generator.generate_speech()
-        data['statistics'] = self._generate_speech_statistics()
+        data['speech'],data['statistics'] = self.mcc_speech_generator.generate_speech()
         data['statistics'] = dict(data['statistics'])
         return data
