@@ -23,6 +23,7 @@ import pickle
 import numpy as np
 from itertools import chain
 from scipy.interpolate import interp1d
+from rake import get_keywords, get_word_occurences
 
 
 __author__ = "Tal Peretz"
@@ -89,7 +90,8 @@ class MccSpeechGenerator(SpeechGenerator):
             return m.group(0).replace(r' ', '')
 
         corrected_output = [re.sub(blank_with_punct, rep, sentence) for sentence in output]
-        return '\n'.join(corrected_output)
+        speech = '\n'.join(corrected_output)
+        return speech, get_word_occurences(text, 15)
 
 
 class MccEmbeddedSpeechGenerator(SpeechGenerator):
@@ -186,8 +188,8 @@ class MccTopicBasedSpeechGenerator(SpeechGenerator):
         with open(constants.SPEECH_MODELS_PATH, 'rb') as f:
             mc_models = pickle.load(f)
         output = list()
-        m = interp1d([0, n_sentences - len(intro)], [0, len(mc_models)])
-        for i in range(n_sentences - len(intro)):
+        m = interp1d([0, n_sentences], [0, len(mc_models)])
+        for i in range(n_sentences):
             mc_model = mc_models[int(m(i))]
             output.append(self.generate_sentence(mc_model, output))
         blank_with_punct = r"\s+[',.!?]+"
@@ -255,7 +257,6 @@ if __name__ == '__main__':
     with open(constants.CORPUS_PATH, 'r') as corpus:
         text = corpus.read().lower()
 
-
     texts = ''
     for path in constants.PROCESSED_SPEECHES_PATHS:
         with open(path, 'r') as corpus:
@@ -265,4 +266,4 @@ if __name__ == '__main__':
     # print(mcc_speech_generator.generate_speech(constants.PROCESSED_SPEECHES_PATHS))
 
     mcc_speech_generator = MccSpeechGenerator().preprocess(texts)
-    print(mcc_speech_generator.generate_speech())
+    print mcc_speech_generator.generate_speech()

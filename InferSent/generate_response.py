@@ -17,6 +17,8 @@ from deep_bb import constants
 import numpy as np
 from scipy import spatial
 from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
+import re
 
 
 __author__ = "Tal Peretz"
@@ -79,14 +81,15 @@ class QueryResponder(Responder):
         for v in embedded_sentences_matrix:
             cosine_similarities.append(1 - spatial.distance.cosine(query_vec, v))
         closest_sentence_idx, max_cosine_similarity = np.nanargmax(cosine_similarities), np.max(cosine_similarities)
-        if max_cosine_similarity > constants.SIMILARITY_THRESHOLD:
+        # if max_cosine_similarity > constants.SIMILARITY_THRESHOLD:
+        if True:
             if closest_sentence_idx < len(qna_list):
                 return qna_list[closest_sentence_idx]['answer']
             else:
                 return sentences[closest_sentence_idx]
         else:
             reply, confidence = self.general_responder.reply(query)
-            if confidence > 0.56:
+            if confidence > constants.CHATTER_CONFIDENCE_THRESHOLD:
                 return reply
             else:
                 return np.random.choice(constants.GENERAL_RESPONSES, 1)[0]
@@ -140,16 +143,13 @@ class GeneralResponder(Responder):
     def preprocess(self):
         self.chatbot = ChatBot(
             'deep_bb',
-            trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
         )
+        self.chatbot.set_trainer(ChatterBotCorpusTrainer)
         self.chatbot.train(
             "chatterbot.corpus.english.greetings",
-            "chatterbot.corpus.english.conversations",
             "chatterbot.corpus.english.history",
             "chatterbot.corpus.english.politics",
-            "chatterbot.corpus.english.psychology"
         )
-
         return self
 
     def preprocess_query(self, query):
@@ -168,7 +168,13 @@ if __name__ == '__main__':
         text = f.read().lower().decode('utf-8').strip()
     with open(constants.PROCESSED_FB_POSTS_PATH) as f:
         text = text + '\n\n' + f.read().lower().decode('utf-8').strip()
+    for path in constants.PROCESSED_SPEECHES_PATHS:
+        with open(path, 'r') as corpus:
+            text += re.sub(pattern='\n+', repl='\n\n', string=corpus.read().lower()).decode('utf-8').strip() + '\n\n'
+
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(text)
     qr.preprocess(qna_list, sentences)
-    print qr.reply('como estas?')
+    query = 'are you violent?'
+    print qr.reply(query) + '\n'
+
