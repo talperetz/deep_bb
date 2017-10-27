@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="523177fd-af75-4ff8-8ccc-a3637add45d9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.css" afterPath="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html" afterPath="$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html" afterPath="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.ts" afterPath="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,7 +64,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="speech.component.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="speech.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bb-client/src/app/speech/speech.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -80,8 +79,8 @@
       <file leaf-file-name="speech.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="34" />
+            <state relative-caret-position="378">
+              <caret line="21" column="64" lean-forward="false" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
               <folding>
                 <element signature="n#style#0;n#i#1;n#p#0;n#div#0;n#div#1;n#!!top" expanded="true" />
               </folding>
@@ -109,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat.component.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chat.component.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="141" lean-forward="false" selection-start-line="2" selection-start-column="141" selection-end-line="2" selection-end-column="141" />
+            <state relative-caret-position="144">
+              <caret line="8" column="78" lean-forward="false" selection-start-line="8" selection-start-column="78" selection-end-line="8" selection-end-column="78" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -155,11 +154,11 @@
         <option value="$PROJECT_DIR$/bb-client/src/app/app.component.html" />
         <option value="$PROJECT_DIR$/bb-client/src/app/app.component.css" />
         <option value="$PROJECT_DIR$/bb-client/src/app/chat/chat.component.ts" />
-        <option value="$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html" />
         <option value="$PROJECT_DIR$/bb-client/src/app/chat/chat.component.css" />
-        <option value="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html" />
         <option value="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.css" />
         <option value="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.ts" />
+        <option value="$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html" />
+        <option value="$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html" />
       </list>
     </option>
   </component>
@@ -429,11 +428,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509068859754</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="chat">
+      <created>1509083733824</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1509083733824</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36553000" />
+    <option name="totallyTimeSpent" value="36879000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -644,9 +650,9 @@
         <state relative-caret-position="270">
           <caret line="15" column="67" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
           <folding>
-            <marker date="1509083596138" expanded="true" signature="41009:41026" ph="..." />
-            <marker date="1509083596138" expanded="true" signature="45794:45812" ph="..." />
-            <marker date="1509083596138" expanded="true" signature="45794:45825" ph="..." />
+            <marker date="1509084026979" expanded="true" signature="41009:41026" ph="..." />
+            <marker date="1509084026979" expanded="true" signature="45888:45906" ph="..." />
+            <marker date="1509084026979" expanded="true" signature="45888:45919" ph="..." />
           </folding>
         </state>
       </provider>
@@ -779,22 +785,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html">
+    <entry file="file://$PROJECT_DIR$/bb-client/src/app/speech/speech.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="141" lean-forward="false" selection-start-line="2" selection-start-column="141" selection-end-line="2" selection-end-column="141" />
+        <state relative-caret-position="300">
+          <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="34" />
-          <folding>
-            <element signature="n#style#0;n#i#1;n#p#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#0#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -807,12 +803,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bb-client/src/app/speech/speech.component.ts">
+    <entry file="file://$PROJECT_DIR$/bb-client/src/app/speech/speech.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+        <state relative-caret-position="378">
+          <caret line="21" column="64" lean-forward="false" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
           <folding>
-            <element signature="e#0#48#0" expanded="true" />
+            <element signature="n#style#0;n#i#1;n#p#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bb-client/src/app/chat/chat.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="78" lean-forward="false" selection-start-line="8" selection-start-column="78" selection-end-line="8" selection-end-column="78" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
