@@ -147,8 +147,10 @@ class GeneralResponder(Responder):
         self.chatbot.set_trainer(ChatterBotCorpusTrainer)
         self.chatbot.train(
             "chatterbot.corpus.english.greetings",
-            "chatterbot.corpus.english.history",
-            "chatterbot.corpus.english.politics",
+            "chatterbot.corpus.english.conversations",
+            "chatterbot.corpus.hebrew.conversations"
+            # "chatterbot.corpus.english.history",
+            # "chatterbot.corpus.english.politics"
         )
         return self
 
@@ -175,6 +177,14 @@ if __name__ == '__main__':
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(text)
     qr.preprocess(qna_list, sentences)
-    query = 'are you violent?'
+    query = 'how is it to be a prime minister?'
+    print qr.reply(query) + '\n'
+    query = 'do you like israel?'
+    print qr.reply(query) + '\n'
+    query = 'will there ever be peace?'
+    print qr.reply(query) + '\n'
+    query = 'how are you?'
+    print qr.reply(query) + '\n'
+    query = 'hi'
     print qr.reply(query) + '\n'
 
