@@ -21,5 +21,9 @@ class SpeechController(Controller):
     def _generate_speech(self):
         data = dict()
         data['speech'], data['statistics'] = self.mcc_speech_generator.generate_speech()
+        data['statistics_words'] = sorted(data.get('statistics').keys())
+        data['statistics_counts'] = list()
+        for word_count in data['statistics_words']:
+            data['statistics_counts'].append(data['statistics'][word_count])
         data['statistics'] = dict(data['statistics'])
         return data
