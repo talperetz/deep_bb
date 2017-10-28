@@ -2,17 +2,18 @@
 
 """
 :Date: 10/25/17
-:TL;DR:
-:Abstract:
-:Problem:
-:Proposed Solution:
+:TL;DR: deep_bb tweet generator component
+:Abstract: DataHack 2017 - 2 days hackaton
+:Problem: given a small amount of sentences and a smaller amount of q&a generate bb typical tweet
+:Proposed Solution: markov chains with POS tagging (after a failed attempt with word-RNN)
 """
 
-from abc import ABCMeta, abstractmethod
+
 import markovify
 import pickle
-import spacy
 from deep_bb import constants
+from deep_bb.abstracts import TweetGenerator
+from deep_bb.utils import POSifiedText
 import re
 
 __author__ = "Tal Peretz"
@@ -20,31 +21,6 @@ __copyright__ = "Copyright 2017"
 __maintainer__ = "Tal Peretz"
 __email__ = "talp@panorays.com"
 __status__ = "Development"
-
-
-class TweetGenerator:
-    __metaclass__ = ABCMeta
-    model = None
-
-    @abstractmethod
-    def preprocess(self, texts, weights=None):
-        pass
-
-    @abstractmethod
-    def generate_tweet(self):
-        pass
-
-
-class POSifiedText(markovify.Text):
-    nlp = spacy.load("en")
-
-    def word_split(self, sentence):
-        sentence = sentence.decode('utf-8')
-        return ["::".join((word.orth_, word.pos_)) for word in self.nlp(sentence)]
-
-    def word_join(self, words):
-        sentence = " ".join(word.split("::")[0] for word in words)
-        return sentence
 
 
 class MccTweetGenerator(TweetGenerator):
@@ -79,6 +55,8 @@ class MccTweetGenerator(TweetGenerator):
 
 
 if __name__ == '__main__':
+    # usage example:
+
     with open(constants.PROCESSED_TWEETS_PATH, 'r') as corpus:
         tweets_text = re.sub(pattern='\n+', repl='\n', string=corpus.read().lower())
 
@@ -87,6 +65,6 @@ if __name__ == '__main__':
 
     with open(constants.PROCESSED_FB_POSTS_PATH, 'r') as corpus:
         fb_text = re.sub(pattern='.', repl='.\n',string=re.sub(pattern='\n+', repl='\n', string=corpus.read().lower()))
-    # print text
+
     mcc_speech_generator = MccTweetGenerator().preprocess([tweets_text, fb_text, quotes_text], weights=[0.4, 2, 1])
     print(mcc_speech_generator.generate_tweet())

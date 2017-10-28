@@ -3,21 +3,25 @@
 
 """
 :Date: 10/25/17
-:TL;DR:
-:Abstract:
-:Problem:
-:Proposed Solution:
+:TL;DR: deep_bb chat component
+:Abstract: DataHack 2017 - 2 days hackaton
+:Problem: given a small amount of sentences and a smaller amount of q&a build a functioning chatbot
+:Proposed Solution: use sentence embedding and cosine similarity to relate query to question,
+if there is no related question try relating a sentence,
+if there is no related sentence use a trained chatbot,
+if the chatbot isn't confident generate random general response
 """
 
 import torch
 import nltk
 import pickle
-from abc import ABCMeta, abstractmethod
+from deep_bb.abstracts import Responder
 from deep_bb import constants
+from deep_bb.utils import get_stored_objects, store_objects
 import numpy as np
 from scipy import spatial
 from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 import re
 
 
@@ -28,23 +32,13 @@ __email__ = "talp@panorays.com"
 __status__ = "Development"
 
 
-class Responder:
-    __metaclass__ = ABCMeta
-
-    @abstractmethod
-    def preprocess_query(self, query):
-        pass
-
-    @abstractmethod
-    def reply(self, query):
-        pass
-
-
 class QueryResponder(Responder):
+    chatbot_responder = None
     general_responder = None
 
     def __init__(self):
-        self.general_responder = GeneralResponder().preprocess()
+        self.chatbot_responder = ChatbotResponder().preprocess()
+        self.general_responder = GeneralResponder()
 
     def preprocess(self, qna_list, quotes):
         infersent = torch.load(constants.INFERSENT_ALL_NLI_PATH, map_location=lambda storage, loc: storage)
@@ -52,14 +46,11 @@ class QueryResponder(Responder):
         sentences = [d['question'].decode('utf-8').strip() for d in qna_list]
         sentences.extend(quotes)
         infersent.build_vocab(sentences, tokenize=True)
-        torch.save(infersent, constants.CHAT_INFERSENT_MODEL_PATH)
         embedded_sentences_matrix = infersent.encode(sentences, tokenize=True)
-        with open(constants.CHAT_EMBEDDED_SENTENCES_MATRIX_PATH, 'wb') as f:
-            pickle.dump(embedded_sentences_matrix, f)
-        with open(constants.PROCESSED_QNA_PATH, 'wb') as f:
-            pickle.dump(qna_list, f)
-        with open(constants.CHAT_PROCESSED_SENTENCES_PATH, 'wb') as f:
-            pickle.dump(sentences, f)
+
+        # save to disk
+        torch.save(infersent, constants.CHAT_INFERSENT_MODEL_PATH)
+        store_objects({constants.CHAT_EMBEDDED_SENTENCES_MATRIX_PATH:embedded_sentences_matrix, constants.PROCESSED_QNA_PATH:qna_list, constants.CHAT_PROCESSED_SENTENCES_PATH:sentences})
 
     def preprocess_query(self, query):
         infersent = torch.load(constants.CHAT_INFERSENT_MODEL_PATH)
@@ -67,77 +58,37 @@ class QueryResponder(Responder):
         return infersent.encode([sentence])[0]
 
     def reply(self, query):
-        # improve according to
-        # https://stackoverflow.com/questions/17627219/whats-the-fastest-way-in-python-to-calculate-cosine-similarity-given-sparse-mat
-        # since the matrix is very sparse !!!!!!!!!!!!!!!!!!
-        with open(constants.CHAT_EMBEDDED_SENTENCES_MATRIX_PATH, 'rb') as f:
-            embedded_sentences_matrix = pickle.load(f)
-        with open(constants.PROCESSED_QNA_PATH, 'rb') as f:
-            qna_list = pickle.load(f)
-        with open(constants.CHAT_PROCESSED_SENTENCES_PATH, 'rb') as f:
-            sentences = pickle.load(f)
+        """
+        TODO: improve according to
+        https://stackoverflow.com/questions/17627219/whats-the-fastest-way-in-python-to-calculate-cosine-similarity-given-sparse-mat
+        :param query: string representing question or sentence
+        :return: string response
+        """
+
+        # load from disk
+        embedded_sentences_matrix, qna_list, sentences = get_stored_objects(constants.CHAT_EMBEDDED_SENTENCES_MATRIX_PATH, constants.PROCESSED_QNA_PATH, constants.CHAT_PROCESSED_SENTENCES_PATH)
+
         query_vec = self.preprocess_query(query)
+
         cosine_similarities = []
         for v in embedded_sentences_matrix:
             cosine_similarities.append(1 - spatial.distance.cosine(query_vec, v))
         closest_sentence_idx, max_cosine_similarity = np.nanargmax(cosine_similarities), np.max(cosine_similarities)
-        # if max_cosine_similarity > constants.SIMILARITY_THRESHOLD:
-        if True:
+
+        if max_cosine_similarity > constants.SIMILARITY_THRESHOLD:
             if closest_sentence_idx < len(qna_list):
                 return qna_list[closest_sentence_idx]['answer']
             else:
                 return sentences[closest_sentence_idx]
         else:
-            reply, confidence = self.general_responder.reply(query)
+            reply, confidence = self.chatbot_responder.reply(query)
             if confidence > constants.CHATTER_CONFIDENCE_THRESHOLD:
                 return reply
             else:
-                return np.random.choice(constants.GENERAL_RESPONSES, 1)[0]
+                return self.general_responder.reply(query)
 
 
-
-# class QueryResponder(Responder):
-#     topic_to_model = {}
-#
-#     def __init__(self):
-#         with open('../models/trained_lda_model.pickle', 'rb') as f:
-#             self.lda_model = pickle.load(f)
-#         with open('../models/bow_dictionary.pickle', 'rb') as f:
-#             self.bow_dictionary = pickle.load(f)
-#
-#     def preprocess_query(self, query):
-#
-#         # clean and tokenize document string
-#         raw = query.lower()
-#         tokenizer = RegexpTokenizer(r'\w+')
-#         tokens = tokenizer.tokenize(raw)
-#         # important_tokens = get_importatnt_words(' '.join(tokens))
-#
-#         # create English stop words list
-#         en_stop = get_stop_words('en')
-#         stopped_tokens = [i for i in tokens if not i in en_stop]
-#
-#         # Create p_stemmer of class PorterStemmer
-#         p_stemmer = PorterStemmer()
-#         stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
-#         query_bow = [self.bow_dictionary.doc2bow(stemmed_tokens)]
-#         return query_bow
-#
-#     def get_chosen_topic_relevance(self, query):
-#         query_bow = self.preprocess_query(query)
-#         doc_lda = self.lda_model[query_bow]
-#         topic_relevance = max(list(doc_lda)[0], key=lambda tup: tup[1])[1]
-#         return topic_relevance
-#
-#     def reply(self, query):
-#         query_bow = self.preprocess_query(query)
-#         doc_lda = self.lda_model[query_bow]
-#         topic = max(list(doc_lda)[0], key=lambda tup: tup[1])[0]
-#         self.topic_to_model[topic].generate_sentence()
-
-
-class GeneralResponder(Responder):
-    # https://github.com/gunthercox/ChatterBot
+class ChatbotResponder(Responder):
     chatbot = None
 
     def preprocess(self):
@@ -154,15 +105,20 @@ class GeneralResponder(Responder):
         )
         return self
 
-    def preprocess_query(self, query):
-        return query
-
     def reply(self, query):
         response = self.chatbot.get_response(query)
         return response.text, response.confidence
 
 
+class GeneralResponder(Responder):
+
+    def reply(self, query):
+        return np.random.choice(constants.GENERAL_RESPONSES, 1)[0]
+
+
 if __name__ == '__main__':
+    # usage example:
+
     qr = QueryResponder()
     with open(constants.PROCESSED_QNA_PATH) as f:
         qna_list = pickle.load(f)
@@ -187,4 +143,3 @@ if __name__ == '__main__':
     print qr.reply(query) + '\n'
     query = 'hi'
     print qr.reply(query) + '\n'
-
