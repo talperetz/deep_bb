@@ -24,11 +24,11 @@ it has **chat**, **tweet generation** and *charismatic* **speech generation** fe
 [NLTK](http://www.nltk.org/)
 
 ### Contributors ###
-[Tal Peretz](https://github.com/talperetz)
-[Dor Peretz](https://github.com/dorperetz)
-[David Lymkis](https://github.com/gotenxds)
-[Ran Shamay](https://github.com/ranshamay89)
-[Demi Ben Ari](https://github.com/demibenari)
+[Tal Peretz](https://github.com/talperetz)<br>
+[Dor Peretz](https://github.com/dorperetz)<br>
+[David Lymkis](https://github.com/gotenxds)<br>
+[Ran Shamay](https://github.com/ranshamay89)<br>
+[Demi Ben Ari](https://github.com/demibenari)<br>
 
 ### Contact ###
 [Tal Peretz](https://www.linkedin.com/in/tal-per/)
