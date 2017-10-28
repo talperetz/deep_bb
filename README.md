@@ -23,8 +23,17 @@ it has **chat**, **tweet generation** and *charismatic* **speech generation** fe
 [gensim](https://radimrehurek.com/gensim/)<br>
 [NLTK](http://www.nltk.org/)
 
+### Contributors ###
+[Tal Peretz](https://github.com/talperetz)
+[Dor Peretz](https://github.com/dorperetz)
+[David Lymkis](https://github.com/gotenxds)
+[Ran Shamay](https://github.com/ranshamay89)
+[Demi Ben Ari](https://github.com/demibenari)
+
 ### Contact ###
-[Tal Peretz](https://bytebucket.org/panorays/pano_people/#TBD)
+[Tal Peretz](https://www.linkedin.com/in/tal-per/)
+
+
 
 
 
