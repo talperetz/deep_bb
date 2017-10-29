@@ -44,7 +44,7 @@ class MccSpeechGenerator(SpeechGenerator):
         store_objects({constants.SPEECH_MODEL_PATH:mc_model})
         return self
 
-    def generate_speech(self, n_sentences=15, n_words=15):
+    def generate_speech(self, n_sentences=constants.DEFAULT_N_SENTENCES, n_words=constants.DEFAULT_N_WORDS):
         mc_model = get_stored_objects(constants.SPEECH_MODEL_PATH)
         intro = generate_intro()
         output = [intro]
@@ -75,7 +75,7 @@ class MccEmbeddedSpeechGenerator(SpeechGenerator):
         sentence = sentence.lower().decode('utf-8').strip()
         return infersent.encode([sentence])[0]
 
-    def generate_speech(self, n_sentences=15, n_words=15):
+    def generate_speech(self, n_sentences=constants.DEFAULT_N_SENTENCES, n_words=constants.DEFAULT_N_WORDS):
         with open(constants.SPEECH_MODEL_PATH, 'rb') as f:
             mc_model = pickle.load(f)
 
@@ -87,11 +87,11 @@ class MccEmbeddedSpeechGenerator(SpeechGenerator):
             candidate_sentence = generate_sentence(mc_model, output)
             v = self.preprocess_sentence(candidate_sentence)
             last_sentence_cosine_similarity = (1 - spatial.distance.cosine(sent_vec, v))
-            if 0.7 < last_sentence_cosine_similarity < 0.9:
+            if constants.PREV_SENTENCE_MIN_SIMILARITY_THRESHOLD < last_sentence_cosine_similarity < constants.PREV_SENTENCE_MAX_SIMILARITY_THRESHOLD:
                 is_duplicated = False
                 for vec in sentences_vectors:
                     past_sentences_cosine_similarity = (1 - spatial.distance.cosine(vec, v))
-                    if past_sentences_cosine_similarity > 0.94:
+                    if past_sentences_cosine_similarity > constants.PAST_SENTENCES_MAX_SIMILARITY_THRESHOLD:
                         is_duplicated = True
                 if not is_duplicated:
                     output.append(candidate_sentence)
@@ -126,7 +126,7 @@ class MccTopicBasedSpeechGenerator(SpeechGenerator):
         topic_structure.append(constants.LDA_TOPICS_MAP['end'])
         return topic_structure
 
-    def generate_speech(self, n_sentences=15, n_words=15):
+    def generate_speech(self, n_sentences=constants.DEFAULT_N_SENTENCES, n_words=constants.DEFAULT_N_WORDS):
         with open(constants.SPEECH_MODELS_PATH, 'rb') as f:
             mc_models = pickle.load(f)
         output = [generate_intro()]
