@@ -2,7 +2,7 @@
 ![](resources/DeepBB.png)
 
 ### Intro ###
-as a first step towards an AI ruler <br>
+As a first step towards an AI ruler <br>
 deep_bb is a multi-functional AI of our Prime Minister - benjamin netanyahu <br>
 it has **chat**, **tweet generation** and *charismatic* **speech generation** features
 

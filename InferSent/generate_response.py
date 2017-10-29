@@ -75,6 +75,7 @@ class QueryResponder(Responder):
             cosine_similarities.append(1 - spatial.distance.cosine(query_vec, v))
         closest_sentence_idx, max_cosine_similarity = np.nanargmax(cosine_similarities), np.max(cosine_similarities)
 
+        print max_cosine_similarity
         if max_cosine_similarity > constants.SIMILARITY_THRESHOLD:
             if closest_sentence_idx < len(qna_list):
                 return qna_list[closest_sentence_idx]['answer']
@@ -97,11 +98,13 @@ class ChatbotResponder(Responder):
         )
         self.chatbot.set_trainer(ChatterBotCorpusTrainer)
         self.chatbot.train(
+            "chatterbot.corpus.english.ai",
+            "chatterbot.corpus.english.literature",
             "chatterbot.corpus.english.greetings",
             "chatterbot.corpus.english.conversations",
-            "chatterbot.corpus.hebrew.conversations"
-            # "chatterbot.corpus.english.history",
-            # "chatterbot.corpus.english.politics"
+            "chatterbot.corpus.hebrew.conversations",
+            "chatterbot.corpus.english.history",
+            "chatterbot.corpus.english.politics"
         )
         return self
 
@@ -142,4 +145,12 @@ if __name__ == '__main__':
     query = 'how are you?'
     print qr.reply(query) + '\n'
     query = 'hi'
+    print qr.reply(query) + '\n'
+    query = 'can we meet?'
+    print qr.reply(query) + '\n'
+    query = 'do you like iran?'
+    print qr.reply(query) + '\n'
+    query = 'how about hamas?'
+    print qr.reply(query) + '\n'
+    query = 'terror israel'
     print qr.reply(query) + '\n'
