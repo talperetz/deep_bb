@@ -11,7 +11,7 @@ it has **chat**, **tweet generation** and *charismatic* **speech generation** fe
 [http://deepolitics.com/](http://deepolitics.com/)
 	
 ### More information ###
-[deep_bb a first step to AI Gov (Medium post)]()
+[deep_bb a first step to AI Gov (Medium post)](https://medium.com/@talperetz24/deep-politics-first-step-towards-an-ai-takeover-236074c7c2d7)
 
 ### Credits and Awesome Resources ###
 [TensorFlow](https://www.tensorflow.org/)<br>
